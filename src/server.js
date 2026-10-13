@@ -44,7 +44,7 @@ export function createApp({ store = new Store(), credentials = [], requireProduc
         if(!pdf&&process.env.VERCEL)content=Buffer.from(content.toString().replaceAll('http://127.0.0.1:4315',process.env.PUBLIC_ORIGIN??`https://${req.headers.host}`));
         res.writeHead(200,{'Content-Type':pdf?'application/pdf':'text/html; charset=utf-8','X-Content-Type-Options':'nosniff','X-Frame-Options':'DENY','Cache-Control':'public, max-age=3600','Referrer-Policy':'no-referrer'});return res.end(content);
       }
-      const assets = { '/': [process.env.VERCEL ? 'welcome.html' : 'index.html', 'text/html'], '/flags': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'], '/agents': ['agents.html','text/html'], '/agents.js':['agents.js','text/javascript'], '/manrope.woff2':['manrope.woff2','font/woff2'] };
+      const assets = { '/': [process.env.VERCEL ? 'welcome.html' : 'flags.html', 'text/html'], '/flags': ['flags.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'], '/agents': ['agents.html','text/html'], '/agents.js':['agents.js','text/javascript'], '/manrope.woff2':['manrope.woff2','font/woff2'] };
       assets['/operations']=['operations.html','text/html'];assets['/operations.js']=['operations.js','text/javascript'];assets['/operations-ui.js']=['operations-ui.js','text/javascript'];assets['/enterprise-ui.js']=['enterprise-ui.js','text/javascript'];
       assets['/welcome']=['welcome.html','text/html'];assets['/welcome.css']=['welcome.css','text/css'];assets['/welcome.js']=['welcome.js','text/javascript'];
       assets['/pogonia-regular.otf']=['pogonia-regular.otf','font/otf'];assets['/pogonia-semibold.otf']=['pogonia-semibold.otf','font/otf'];
