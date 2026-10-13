@@ -1,0 +1,16 @@
+node_modules
+data
+.env
+.env.*
+.git
+.github
+.codex
+.agents
+.impeccable
+tmp
+output
+docs
+*.key
+*.pem
+*.log
+test

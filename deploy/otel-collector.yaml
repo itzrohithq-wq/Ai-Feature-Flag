@@ -1,0 +1,35 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+processors:
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 128
+  batch:
+    send_batch_size: 100
+    send_batch_max_size: 100
+    timeout: 1s
+exporters:
+  otlphttp/studio:
+    traces_endpoint: ${env:STUDIO_OTLP_ENDPOINT}
+    encoding: json
+    compression: none
+    headers:
+      Authorization: Bearer ${env:STUDIO_TELEMETRY_TOKEN}
+    timeout: 10s
+    retry_on_failure:
+      enabled: true
+      max_elapsed_time: 60s
+    sending_queue:
+      enabled: true
+      queue_size: 100
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [otlphttp/studio]

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Configure prompts and models, evaluate AI behavior, and manage releases with Control Studio. Explore the product and open your workspace.">
+  <meta name="theme-color" content="#F5F6F4">
+  <title>Control Studio — Give every AI release a little more certainty</title>
+  <link rel="preload" href="/pogonia-regular.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="/welcome.css">
+  <script src="/welcome.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-frame">
+    <header class="site-header">
+      <a class="wordmark" href="/welcome" aria-label="Control Studio home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v5H10v9H5z"/><path d="M14 14h5v5h-5z"/></svg></span>Control Studio<span class="wordmark-dot" aria-hidden="true">.</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>Menu</span></button>
+      <nav id="site-nav" aria-label="Main navigation">
+        <a href="#product">Product</a><a href="#walkthrough">How it works</a><a href="#pricing">Pricing</a><a href="#questions">Questions</a>
+      </nav>
+      <a class="button button-dark header-action" href="/agents">Open workspace <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <h1 id="hero-title">Good AI deserves<br>a <span>controlled release.</span></h1>
+          <p>Shape the prompt. Find the better answer. Decide what goes live.<br class="desktop-break"> One considered workspace for your AI’s next move.</p>
+          <div class="button-row"><a class="button button-lime" href="/agents">Open your workspace <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a><a class="button button-quiet" href="#walkthrough"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7z"/></svg>See it in action</a></div>
+        </div>
+        <div class="hero-stage">
+          <div class="stage-caption"><span><span class="status-dot"></span> From idea to rollout</span><span>Inside the studio <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10M7 17 17 7"/></svg></span></div>
+          <figure class="product-window">
+            <div class="window-bar"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>Control Studio / AI runtime</span><span class="demo-badge">Demo workspace</span></div>
+            <img src="/studio-preview.png" width="1280" height="900" alt="Control Studio configuration editor with prompt variations, model selection, and version history in an isolated demonstration workspace." fetchpriority="high">
+          </figure>
+          <div class="stage-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><div>Change the prompt.<br><strong>Keep the history.</strong></div></div>
+        </div>
+      </section>
+
+      <section class="provider-section content-width" aria-label="Supported AI providers">
+        <p>Your models. Connected.</p>
+        <ul><li>OpenAI</li><li>Claude <span>by Anthropic</span></li><li>Gemini</li><li>Amazon Bedrock</li></ul>
+        <span class="fine-print">Use your own provider accounts and API credentials.</span>
+      </section>
+
+      <section id="product" class="product-section content-width section-space" aria-labelledby="product-title">
+        <div class="section-heading"><h2 id="product-title">A little less guesswork.<br>A lot more control.</h2><p>Bring the pieces of an AI release together. From the words in a prompt to the rules that decide who sees it.</p></div>
+        <div class="feature-grid">
+          <article class="feature feature-config">
+            <div class="feature-copy"><h3>Different models.<br>One place to shape them.</h3><p>Keep prompts, instructions, and model settings in versioned configurations. Compare variations without losing the last good one.</p></div>
+            <div class="model-demo" aria-label="Illustrative provider selection">
+              <div class="provider-buttons" role="group" aria-label="Preview a provider"><button type="button" data-provider="openai" aria-pressed="true">OpenAI</button><button type="button" data-provider="anthropic" aria-pressed="false">Claude</button><button type="button" data-provider="gemini" aria-pressed="false">Gemini</button></div>
+              <div class="prompt-sheet"><div class="sheet-header"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v12H9l-5 4zM8 9h8M8 13h5"/></svg>support-assistant</span><span>v2</span></div><span class="field-caption">System prompt</span><p>Explain it simply.<br>Make the next step clear.</p><div class="sheet-footer"><span id="provider-preview">OpenAI configuration</span><span class="status-tag">Versioned</span></div></div>
+              <span class="demo-note">Interactive illustration. No provider calls.</span>
+            </div>
+            <a class="text-link" href="/agents">Explore AI configurations <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+          </article>
+          <article class="feature feature-release">
+            <svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6zM8 12l3 3 5-6"/></svg>
+            <h3>Move forward.<br>Keep a way back.</h3><p>Introduce changes gradually. Use guardrails to pause or roll back when configured thresholds are breached.</p>
+            <div class="rollout-demo"><div class="rollout-state"><span class="status-dot"></span><span id="rollout-state" aria-live="polite">Demo rollout active</span></div><div class="release-path" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div><button id="rollout-toggle" class="button" type="button" aria-pressed="false">Pause demo rollout <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg></button><span class="demo-note">Try the control. Your workspace is unaffected.</span></div>
+          </article>
+          <article class="feature feature-target">
+            <div class="audience-art" aria-hidden="true"><span class="audience-node"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/></svg></span><span class="audience-pill">Beta users</span><span class="audience-pill audience-pill-secondary">Your rules</span></div>
+            <h3>The right experience.<br>For the right people.</h3><p>Use feature flags and audience rules to choose who gets a change, in each environment.</p><a class="text-link" href="/">Explore feature flags <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+          </article>
+          <article class="feature feature-evaluate">
+            <div class="feature-copy"><h3>Better answers start<br>with better questions.</h3><p>Compare variations against saved datasets and judges. Review the evidence before your next release.</p><a class="text-link" href="/operations#evaluate">Open evaluations <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
+            <div class="evaluation-sheet"><div class="sheet-header"><span>Quality check</span><span class="demo-badge">Example</span></div><div><span>Answers the question</span><span class="checkmark" role="img" aria-label="Pass"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></span></div><div><span>Follows the instructions</span><span class="checkmark" role="img" aria-label="Pass"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></span></div><div><span>Ready for human review</span><span class="review-dot" role="img" aria-label="Pending review"></span></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="walkthrough" class="walkthrough section-space" aria-labelledby="walkthrough-title">
+        <div class="content-width"><div class="section-heading"><h2 id="walkthrough-title">Meet your next<br>working rhythm.</h2><div><p>A short look inside the actual product. Connect a workspace, shape a configuration, and inspect the result.</p><a class="text-link" href="#getting-started">Prefer a quick read? <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></div>
+          <figure class="tour-player"><video controls playsinline preload="none" poster="/tour-poster.png" aria-label="Control Studio walkthrough using demo data"><source src="/tour.webm" type="video/webm"><track kind="captions" src="/tour.vtt" srclang="en" label="English instructions" default><p>Your browser cannot play this video. <a href="#getting-started">Read the setup steps below.</a></p></video><figcaption><span><span class="status-dot"></span> Recorded in Control Studio</span><span>Demo data · No paid model requests</span></figcaption></figure>
+        </div>
+      </section>
+
+      <section id="getting-started" class="onboarding content-width section-space" aria-labelledby="start-title">
+        <div class="onboarding-intro"><h2 id="start-title">Your first change.<br>Three small steps.</h2><p>You bring the application and the model account. The studio gives you a place to configure, compare, and control.</p><a class="button button-dark" href="/operations#access">Set up your workspace <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a><div class="connection-note"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg><p>Workspace tokens open your studio.<br>Provider keys connect your models.</p></div></div>
+        <ol class="setup-steps"><li><span class="step-number">1</span><div><h3>Connect your workspace</h3><p>Use the owner token from your server, or sign in with an account created by your administrator.</p><a href="/operations#access">Workspace access <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></li><li><span class="step-number">2</span><div><h3>Add a provider. Shape a prompt.</h3><p>Save your provider’s API key, choose a model, and create your first configuration in AI runtime.</p><a href="/agents">AI runtime <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></li><li><span class="step-number">3</span><div><h3>Test it. Then decide.</h3><p>Resolve a configuration without a model call, or generate a real answer using your provider account. Evaluate changes before promoting them.</p><a href="/operations#evaluate">Evaluations <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></li></ol>
+      </section>
+
+      <section id="pricing" class="pricing-section section-space" aria-labelledby="pricing-title">
+        <div class="content-width"><div class="pricing-heading"><h2 id="pricing-title">A place for your<br>next stage.</h2><p>Start with an idea. Give it room to grow.</p></div>
+          <div class="pricing-grid">
+            <article class="price-card"><h3>Starter</h3><p class="plan-intro">For your first steps.</p><p class="price"><span>$</span>19<span class="currency">USD</span></p><a class="button button-outline" href="#plan-details" data-plan="Starter">Explore Starter <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a><p class="plan-note">A starting point for exploring your AI workflow.</p></article>
+            <article class="price-card price-pro"><div class="plan-heading"><h3>Pro</h3><span class="plan-tag">Room to grow</span></div><p class="plan-intro">For your next chapter.</p><p class="price"><span>$</span>49<span class="currency">USD</span></p><a class="button button-lime" href="#plan-details" data-plan="Pro">Explore Pro <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a><p class="plan-note">Keep building on the way your team works.</p></article>
+            <article class="price-card"><h3>Premium</h3><p class="plan-intro">For the bigger picture.</p><p class="price"><span>$</span>199<span class="currency">USD</span></p><a class="button button-outline" href="#plan-details" data-plan="Premium">Explore Premium <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a><p class="plan-note">A place to consider your broader product needs.</p></article>
+          </div>
+          <div id="plan-details" class="plan-details" tabindex="-1"><p id="plan-selection" aria-live="polite">Explore the product before choosing a plan.</p><p>Plan limits and billing frequency are not yet published. Subscription checkout is not available in this local version. AI provider usage is billed separately by your provider.</p><a class="text-link" href="/agents">Try the local workspace <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
+        </div>
+      </section>
+
+      <section id="questions" class="faq-section content-width section-space" aria-labelledby="faq-title"><div><h2 id="faq-title">A few things<br>worth knowing.</h2><p>Less mystery before you get started.</p></div><div class="faq-list">
+        <details><summary>What does Control Studio actually do?<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p>It manages the configuration and release of AI features: prompts, models, evaluations, targeting, experiments, rollout safeguards, and workspace access. Your application uses the SDK or API to retrieve or execute these configurations.</p></details>
+        <details><summary>Do I need my own API key?<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p>Yes, for real model generation. Configure credentials for OpenAI, Anthropic, Gemini, or an AWS identity for Bedrock. You can explore configuration and targeting without making paid provider calls. A ChatGPT or Claude chat subscription is not the workspace token.</p></details>
+        <details><summary>Can I change a prompt without redeploying?<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p>After your application is integrated with the runtime, you can save and retrieve new configuration versions independently of an application deployment. Adoption depends on how your application fetches, watches, or caches configuration.</p></details>
+        <details><summary>Where does my workspace run?<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p>This installation runs locally. The project also includes Docker deployment and backup tooling for a self-hosted server. Hosting and provider accounts require their own setup.</p></details>
+        <details><summary>What happens if a release needs to stop?<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p>Use the rollout controls, configured quality guards, and version history to pause, roll back, or restore a prior configuration. Review your fallback behavior: stopping an AI configuration selects its default variation rather than guaranteeing that no model executes.</p></details>
+      </div></section>
+
+      <section class="closing content-width" aria-labelledby="closing-title"><h2 id="closing-title">The next version<br>starts with you.</h2><p>Give your AI a workspace with room to think—and controls to move forward.</p><a class="button button-lime" href="/agents">Open Control Studio <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></section>
+    </main>
+
+    <footer class="site-footer content-width"><div class="footer-top"><div><a class="wordmark" href="/welcome"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v5H10v9H5zM14 14h5v5h-5z"/></svg></span>Control Studio.</a><p>A considered space for<br>your AI’s next move.</p></div><nav aria-label="Product links"><h3>Product</h3><a href="/">Feature flags</a><a href="/agents">AI runtime</a><a href="/operations">Workspace</a></nav><nav aria-label="Explore links"><h3>Explore</h3><a href="#walkthrough">Product tour</a><a href="#pricing">Pricing</a><a href="#getting-started">Getting started</a></nav><nav aria-label="Workspace links"><h3>Your workspace</h3><a href="/operations#access">Access and settings</a><a href="/operations#evaluate">Evaluations</a><a href="/operations#releases">Releases</a></nav></div><div class="footer-bottom"><span>Control Studio · Local development</span><a href="#main">Back to top <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></a></div></footer>
+  </div>
+</body>
+</html>

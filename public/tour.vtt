@@ -1,0 +1,29 @@
+WEBVTT
+
+1
+00:00:00.307 --> 00:00:05.330
+01 / CONNECT. Connect your workspace and choose an environment.
+
+2
+00:00:05.330 --> 00:00:08.860
+02 / CONFIGURE. Choose a versioned configuration from your resource library.
+
+3
+00:00:08.860 --> 00:00:17.315
+02 / CONFIGURE. Keep prompts, models, and traffic weights in the same version.
+
+4
+00:00:17.315 --> 00:00:25.322
+03 / TEST. Resolve a configuration for a user before making a provider call.
+
+5
+00:00:25.322 --> 00:00:32.320
+04 / MONITOR. Inspect recorded quality, latency, cost, and execution trends.
+
+6
+00:00:32.320 --> 00:00:38.323
+05 / ACTIVITY. Follow configuration changes and offline evaluation evidence.
+
+7
+00:00:38.323 --> 00:00:41.000
+READY TO EXPLORE. Configure. Test. Monitor. One workspace for your AI release.

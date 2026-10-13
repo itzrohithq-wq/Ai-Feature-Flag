@@ -1,0 +1,12 @@
+services:
+  control-studio:
+    build: .
+    ports:
+      - "127.0.0.1:4315:4315"
+    volumes:
+      - runtime-data:/app/data
+    environment:
+      REQUIRE_PRODUCTION_APPROVAL: "true"
+    restart: unless-stopped
+volumes:
+  runtime-data:

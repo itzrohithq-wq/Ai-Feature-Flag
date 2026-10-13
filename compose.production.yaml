@@ -1,0 +1,44 @@
+services:
+  control-studio:
+    build: .
+    command: ["node", "scripts/cluster.mjs"]
+    environment:
+      API_WORKERS: "3"
+      REQUIRE_PRODUCTION_APPROVAL: "true"
+      PUBLIC_ORIGIN: ${STUDIO_PUBLIC_ORIGIN:-http://localhost:8080}
+      FLAG_ADMIN_TOKEN: ${STUDIO_ADMIN_TOKEN:?Set a persistent owner token}
+    volumes:
+      - runtime-data:/app/data
+    read_only: true
+    tmpfs: ["/tmp:size=64m,mode=1777"]
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    init: true
+    stop_grace_period: 30s
+    restart: unless-stopped
+    mem_limit: 2g
+    pids_limit: 128
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+  gateway:
+    image: caddy:2.11.2-alpine
+    ports:
+      - "${STUDIO_BIND_ADDRESS:-127.0.0.1}:${STUDIO_HTTP_PORT:-8080}:80"
+      - "${STUDIO_BIND_ADDRESS:-127.0.0.1}:${STUDIO_HTTPS_PORT:-8443}:443"
+    environment:
+      STUDIO_SITE: ${STUDIO_SITE:-http://localhost}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - gateway-data:/data
+      - gateway-config:/config
+    depends_on:
+      control-studio: {condition: service_healthy}
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+volumes:
+  runtime-data:
+  gateway-data:
+  gateway-config:

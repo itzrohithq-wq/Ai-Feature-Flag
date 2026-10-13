@@ -1,0 +1,29 @@
+{
+  "name": "ai-feature-flag-system",
+  "version": "0.6.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.14.0 <25"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test",
+    "check": "node scripts/check.mjs",
+    "test:browser": "node scripts/browser-check.mjs",
+    "test:operations": "node scripts/operations-browser-check.mjs",
+    "start:cluster": "node scripts/cluster.mjs",
+    "test:cluster": "node scripts/cluster-check.mjs",
+    "test:completion": "node scripts/completion-browser-check.mjs",
+    "test:collector": "node scripts/collector-check.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.1149.0",
+    "openid-client": "6.8.8"
+  },
+  "devDependencies": {
+    "@langchain/core": "1.2.17",
+    "@langchain/langgraph": "1.4.21",
+    "jose": "6.2.12"
+  }
+}

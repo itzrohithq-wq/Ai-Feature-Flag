@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>AI Feature Flags</title><link rel="stylesheet" href="/style.css"><script type="module" src="/app.js"></script></head>
+<body class="studio flag-page">
+<header class="product-header"><a href="/" class="brand"><span class="mark" aria-hidden="true">F</span><span>Feature Flags</span></a><nav aria-label="Products"><a href="/" aria-current="page">Feature flags</a><a href="/agents">AI runtime</a><a href="/operations">Workspace</a></nav><span class="tag">Local development</span></header>
+<main>
+<section class="intro"><div><p class="eyebrow">ROLLOUT CONTROL</p><h1>Ship with confidence.</h1><p>Control who sees your AI features. Inspect every decision, and stop a rollout when you need to.</p></div><label>Environment<select id="environment"><option value="development">Development</option><option value="staging">Staging</option><option value="production">Production</option></select></label></section>
+<form id="connect" class="connection"><label>Workspace token<input type="password" id="token" autocomplete="off" required placeholder="Paste the token from your terminal"></label><button>Connect workspace</button><span id="identity">Disconnected</span></form>
+<p id="notice" role="status" aria-live="polite">Connect to begin. Your token stays in memory for this page session.</p>
+<div class="workspace">
+<section class="panel"><div class="section-title"><div><h2>Your flags</h2><p>Versions and controls for this environment.</p></div><button id="refresh" class="secondary" disabled>Refresh</button></div><label>Search flags<input id="search" type="search" placeholder="Search by key"></label><div id="flags" class="flag-list">No workspace connected.</div></section>
+<section class="panel"><div class="section-title"><div><h2 id="editor-title">Create a flag</h2><p>Save a new immutable configuration version.</p></div><button id="new" class="secondary">New</button></div>
+<form id="editor"><label>Flag key<input id="key" required pattern="[a-z][a-z0-9-]{1,63}" placeholder="ai-summary" maxlength="64"></label><div class="row"><label>Type<select id="type"><option value="boolean">Boolean</option><option value="multivariate">Multivariate</option></select></label><label>Rollout percentage<input id="rollout" type="number" min="0" max="100" step="0.1" value="0" required></label></div><label class="check"><input id="enabled" type="checkbox"> Enable rollout</label><label>Target cohorts<input id="targets" placeholder="enterprise, beta (empty means everyone)"></label>
+<div id="boolean-fields" class="row"><label>Enabled value<select id="value"><option value="true">True</option><option value="false">False</option></select></label><label>Default value<select id="default"><option value="false">False</option><option value="true">True</option></select></label></div>
+<div id="variant-fields" hidden><label>Default variant<input id="variant-default" value="baseline"></label><label>Variants (JSON; weights total 100)<textarea id="variants" rows="4">[{"value":"baseline","weight":50},{"value":"candidate","weight":50}]</textarea></label></div>
+<button id="save" disabled>Save configuration</button></form><div class="actions"><button id="kill" class="danger" disabled>Stop rollout</button><span id="version">New flag</span></div>
+</section>
+<section class="panel"><h2>Inspect a decision</h2><p>Evaluate the selected flag with a stable user identifier.</p><form id="evaluate"><label>User identifier<input id="user" required placeholder="test-user-1"></label><label>Cohort<input id="cohort" placeholder="beta"></label><button id="evaluate-button" disabled>Evaluate flag</button></form><pre id="decision">Select a saved flag to inspect a decision.</pre></section>
+<section class="panel"><h2>Configuration history</h2><p>Every saved version remains available for inspection.</p><pre id="history">Select a flag to see its history.</pre></section>
+</div>
+<section class="panel lower"><h2>Exposure analytics</h2><p>Counts by flag, version, value, and decision reason. User identifiers are not stored.</p><div id="stats">No evaluations yet.</div></section>
+<section class="panel lower"><h2>Audit trail</h2><p>The actor, environment, and version behind each configuration change.</p><div id="audit">No configuration changes yet.</div></section>
+<footer>AI Feature Flag System · Initial local implementation · <a href="/welcome">Product overview</a></footer>
+</main></body></html>

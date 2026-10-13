@@ -1,0 +1,3 @@
+Pogonia regular and semibold: supplied by the project owner. The supplied archive contained no separate license text; distribution rights have not been independently verified.
+Manrope: see Manrope-LICENSE.txt.
+Lucide: see Lucide-LICENSE.txt.

@@ -1,0 +1,11 @@
+{$STUDIO_SITE:http://localhost} {
+  encode gzip
+  header {
+    Referrer-Policy strict-origin-when-cross-origin
+  }
+  reverse_proxy control-studio:4315 {
+    health_uri /health
+    health_interval 10s
+    flush_interval -1
+  }
+}

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>AI Control Studio</title><link rel="stylesheet" href="/style.css"><script type="module" src="/agents.js"></script></head>
+<body class="runtime-page studio"><a class="skip-link" href="#main-content">Skip to workspace</a><a class="skip-link" href="#main-content">Skip to workspace</a><header class="product-header"><a href="/" class="brand"><span class="mark" aria-hidden="true">F</span><span>Feature Flags</span></a><nav aria-label="Products"><a href="/">Feature flags</a><a href="/agents" aria-current="page">AI runtime</a><a href="/operations">Workspace</a></nav><span class="tag">Local development</span></header>
+<div class="studio-shell"><aside class="studio-rail"><div role="tablist" aria-label="Runtime workflow" aria-orientation="vertical" class="workflow-tabs"><button type="button" role="tab" id="tab-configure" aria-label="Configure" aria-controls="view-configure" aria-selected="true" tabindex="0" data-view="configure"><svg aria-hidden="true"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="7" height="9" x="3" y="3" rx="1" />
+  <rect width="7" height="5" x="14" y="3" rx="1" />
+  <rect width="7" height="9" x="14" y="12" rx="1" />
+  <rect width="7" height="5" x="3" y="16" rx="1" />
+</svg>
+<span class="nav-tooltip" aria-hidden="true">Configure</span></button><button type="button" role="tab" id="tab-test" aria-label="Test" aria-controls="view-test" aria-selected="false" tabindex="-1" data-view="test"><svg aria-hidden="true"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2" />
+  <path d="M6.453 15h11.094" />
+  <path d="M8.5 2h7" />
+</svg>
+<span class="nav-tooltip" aria-hidden="true">Test</span></button><button type="button" role="tab" id="tab-monitor" aria-label="Monitor" aria-controls="view-monitor" aria-selected="false" tabindex="-1" data-view="monitor"><svg aria-hidden="true"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 16v5" />
+  <path d="M16 14.639V21" />
+  <path d="M20 10.656V21" />
+  <path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15" />
+  <path d="M4 18.463V21" />
+  <path d="M8 14.656V21" />
+</svg>
+<span class="nav-tooltip" aria-hidden="true">Monitor</span></button><button type="button" role="tab" id="tab-activity" aria-label="Activity" aria-controls="view-activity" aria-selected="false" tabindex="-1" data-view="activity"><svg aria-hidden="true"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" />
+</svg>
+<span class="nav-tooltip" aria-hidden="true">Activity</span></button></div><a class="rail-home" href="/operations" aria-label="Workspace operations" title="Workspace operations"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8v8M8 12h8"/><rect x="3" y="3" width="18" height="18" rx="5"/></svg></a></aside><main id="main-content"><section class="intro"><div><h1 id="workspace-heading">Configuration studio</h1><p>Shape your agent’s behavior. Test a change, then control how it reaches production.</p></div><label>Environment<select id="environment"><option value="development">Development</option><option value="staging">Staging</option><option value="production">Production</option></select></label></section>
+<details class="workspace-connection" open><summary>Workspace connection <span id="connection-status">Connect to get started</span></summary><form id="connect" class="connection"><label>Workspace token<input id="token" type="password" autocomplete="off" required placeholder="Paste the token from your terminal"></label><button>Connect workspace</button><span id="identity">Disconnected</span></form></details><p id="notice" role="status" aria-live="polite">Connect to create your first AI configuration.</p>
+<div class="workspace-summary"><p class="selection-context"><span id="selected-context">New resource</span><span id="selected-version"></span></p><section class="metrics-strip" aria-label="Workspace overview"><div><span>Configurations</span><strong id="config-count">0</strong></div><div><span>Current version completions</span><strong id="execution-count">0</strong></div><div><span>Recent offline comparisons</span><strong id="eval-count">0</strong></div><div><span>Recent safety actions</span><strong id="alert-count">0</strong></div></section></div>
+<div id="view-configure" role="tabpanel" aria-labelledby="tab-configure" tabindex="0" class="workflow-view configure-view"><section class="panel"><div class="section-title"><div><h2>Resource library</h2><p>Versioned resources for your AI applications.</p></div><button id="refresh" class="secondary" disabled>Refresh</button></div><label>Resource type<select id="kind"><option value="configs">AI configurations</option><option value="datasets">Evaluation datasets</option><option value="judges">Evaluation judges</option><option value="graphs">Agent graphs</option><option value="snippets">Prompt snippets</option><option value="models">Model profiles</option><option value="tools">Tool definitions</option><option value="segments">Audience segments</option></select></label><label class="resource-search">Find a resource<input id="resource-search" type="search" placeholder="Search by name…"></label><div id="resources" class="flag-list">No workspace connected.</div></section><section class="panel"><div class="section-title"><div><h2 id="editor-title">Create a configuration</h2><p>Use a starter, then adapt it to your application.</p></div><button id="new" class="secondary">New</button></div><form id="editor"><label>Resource key<input id="key" required pattern="[a-z][a-z0-9-]{1,63}" maxlength="64" placeholder="support-agent"></label><label>Starter<select id="preset"><option value="basic">Prompt and model variations</option><option value="agent">Agent instructions and tools</option><option value="ab">A/B experiment</option><option value="bandit">Adaptive bandit experiment</option><option value="guard">Quality and cost guard</option><option value="trigger">Provider fallback trigger</option><option value="progressive">Progressive rollout</option></select></label><button type="button" id="apply-preset" class="secondary">Use starter</button><div id="visual-editor"></div><details id="advanced-editor" class="advanced-editor"><summary>Advanced configuration <span>JSON</span></summary><label>Configuration document<textarea id="document" rows="15" spellcheck="false"></textarea></label><p class="hint">Edit targeting, tools, and rollout policies. Existing fields are preserved when using the visual editor.</p></details><button id="save" disabled>Save version</button></form><div class="actions"><button id="stop" class="danger" disabled>Stop configuration</button><span id="version">New resource</span></div></section><section class="panel"><h2>Version history</h2><p>Inspect earlier versions or restore one as a new version.</p><form id="restore"><label>Version to restore<input id="restore-version" type="number" min="1" required></label><button id="restore-button" class="secondary" disabled>Restore version</button></form><pre tabindex="0" id="history">No resource selected.</pre></section></div><div id="view-test" role="tabpanel" aria-labelledby="tab-test" tabindex="0" class="workflow-view test-view" hidden><section class="panel"><h2>Runtime playground</h2><p>Preview the selected config or graph. This resolves real configuration; it does not call a model.</p><form id="resolve"><label>User identifier<input id="user" value="test-user-1" required></label><div class="row"><label>Context attributes (JSON)<textarea id="attributes" rows="3">{"tier":"beta"}</textarea></label><label>Prompt variables (JSON)<textarea id="variables" rows="3">{"topic":"customer support"}</textarea></label></div><button id="resolve-button" disabled>Resolve configuration</button></form><pre tabindex="0" id="resolved">Select a configuration to inspect its runtime result.</pre></section><section class="panel lower"><h2>Model playground</h2><p>Generate a real completion with a server-configured provider. Provider usage is billed to the configured account. Playground runs do not change production configs or feed rollout guards.</p><p id="providers">No providers connected.</p><form id="generate"><div class="row"><label>Variation<input id="generate-variation" value="baseline" required></label><label>Judge key (optional)<input id="generate-judge" placeholder="answer-judge"></label></div><label>Input<textarea id="generate-input" rows="3">Help me understand this feature.</textarea></label><label>Expected text (for deterministic judge)<input id="generate-expected" value="correct"></label><details class="playground-options"><summary>Streaming, images &amp; tools</summary><label class="check"><input id="generate-stream" type="checkbox">Stream the response as it arrives</label><label>Image attachments<input id="generate-images" type="file" accept="image/png,image/jpeg,image/webp" multiple></label><p class="hint">Up to three images, 500 KB each. Requires an image-capable model from a supported provider.</p><label class="check"><input id="generate-tools" type="checkbox">Allow registered server tools</label><label>Approved tool names<input id="generate-approved" placeholder="calculator"></label><p class="hint">Only registered functions execute. Tools marked for approval must be named explicitly.</p></details><button id="generate-button" disabled>Generate with provider</button></form><pre tabindex="0" id="generation">No completion generated.</pre></section><section class="panel"><h2>Offline comparison</h2><p>Compare generated outputs against a saved dataset and judge. Use the SDK to generate outputs with your provider.</p><form id="benchmark"><label>Dataset key<input id="dataset" placeholder="support-cases" required></label><label>Judge key<input id="judge" placeholder="answer-judge" required></label><label>Generated outputs (JSON)<textarea id="outputs" rows="6">[{"rowId":"case-one","variation":"baseline","output":"correct"},{"rowId":"case-one","variation":"candidate","output":"correct"}]</textarea></label><button id="benchmark-button" disabled>Compare outputs</button><button id="run-benchmark" type="button" class="secondary" disabled>Generate and evaluate dataset</button></form><pre tabindex="0" id="benchmark-result">No comparison yet.</pre></section><section class="panel"><h2>Record an execution outcome</h2><p>Send an outcome for a resolved trace to verify evaluations and policies locally.</p><form id="outcome"><label>Trace identifier<input id="trace" required placeholder="Resolve a config to get its trace"></label><label>Output<input id="output" value="The answer is correct."></label><label>Expected answer (for exact/contains judges)<input id="expected" value="correct"></label><label>Observed metrics (JSON)<textarea id="metrics" rows="5">{"success":true,"latencyMs":120,"costUsd":0.001,"inputTokens":30,"outputTokens":12,"quality":0.9,"reward":1}</textarea></label><button id="outcome-button" disabled>Record outcome</button></form><pre tabindex="0" id="outcome-result">No outcome recorded.</pre></section></div><div id="view-monitor" role="tabpanel" aria-labelledby="tab-monitor" tabindex="0" class="workflow-view monitor-view" hidden><section class="panel lower"><h2>Performance by variation</h2><p>Quality, latency, errors, tokens, reward, and cost reported by your application. Missing metrics remain unknown.</p><div id="performance">No completed executions.</div></section><section class="panel lower"><h2>AI insights over time</h2><p>Compare every served version in this environment across a date range. Defaults to the last seven days.</p><form id="insights-filter"><div class="row"><label>From<input id="insights-from" type="datetime-local"></label><label>To<input id="insights-to" type="datetime-local"></label></div><button id="insights-button" disabled>Update insights</button></form><h3>Execution volume</h3><div id="execution-chart" class="execution-chart">Recorded executions will appear here.</div><h3>By version and variation</h3><div id="insight-versions">No data.</div><h3>Hourly trend</h3><div id="insight-timeline">No data.</div></section><section class="panel lower"><h2>Release alerts</h2><p>Automatic pauses, restores, and variation switches with their triggering evidence.</p><div id="alerts">No safety actions.</div></section><section class="panel lower"><h2>Recent executions</h2><div id="executions">No executions.</div></section></div><div id="view-activity" role="tabpanel" aria-labelledby="tab-activity" tabindex="0" class="workflow-view activity-view" hidden><section class="panel lower"><h2>Offline evaluation history</h2><div id="evaluations">No comparisons.</div></section><section class="panel lower"><h2>Playground history</h2><div id="playgrounds">No completions.</div></section><section class="panel lower"><h2>Change audit</h2><div id="audit">No changes.</div></section><section class="panel lower"><h2>Change approvals</h2><p>When production approvals are enabled, a different reviewer must approve a requested change before it takes effect.</p><div id="approvals">No requests.</div></section></div><footer>Local AI runtime workspace. Provider generation uses your configured account. · <a href="/welcome">Product overview</a></footer></main></div></body></html>
+
+
+
+
+

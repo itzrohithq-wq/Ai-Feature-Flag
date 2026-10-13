@@ -1,0 +1,14 @@
+services:
+  control-studio:
+    build: .
+    command: ["node", "scripts/cluster.mjs"]
+    ports:
+      - "127.0.0.1:4315:4315"
+    volumes:
+      - runtime-data:/app/data
+    environment:
+      REQUIRE_PRODUCTION_APPROVAL: "true"
+      API_WORKERS: "3"
+    restart: unless-stopped
+volumes:
+  runtime-data:

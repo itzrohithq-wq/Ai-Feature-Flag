@@ -1,0 +1,16 @@
+# Optional overlay: docker compose -f compose.cluster.yaml -f compose.telemetry.yaml up -d
+services:
+  otel-collector:
+    image: otel/opentelemetry-collector:0.160.0
+    command: ["--config=/etc/otelcol/config.yaml"]
+    volumes:
+      - ./deploy/otel-collector.yaml:/etc/otelcol/config.yaml:ro
+    ports:
+      - "127.0.0.1:4317:4317"
+      - "127.0.0.1:4318:4318"
+    environment:
+      STUDIO_OTLP_ENDPOINT: http://control-studio:4315/api/runtime/otlp?environment=${STUDIO_TELEMETRY_ENVIRONMENT:-development}
+      STUDIO_TELEMETRY_TOKEN: ${STUDIO_TELEMETRY_TOKEN:?Set an environment-scoped reader token with telemetry resource access}
+    depends_on:
+      - control-studio
+    restart: unless-stopped
