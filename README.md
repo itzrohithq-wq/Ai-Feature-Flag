@@ -2,6 +2,14 @@
 
 Self-hosted feature flags and AI runtime controls for prompts, models, evaluations and guarded releases. Version 0.6.0.
 
+## Live application
+
+- [Open Control Studio on Vercel](https://ai-feature-flag.vercel.app/)
+- [Read the PDF user guide](output/pdf/Control-Studio-Designed-User-Guide.pdf)
+- [Open the hosted PDF guide](https://ai-feature-flag.vercel.app/guide.pdf)
+
+The hosted workspace requires its own credentials; local workspace tokens do not grant access to it.
+
 ## Start locally
 
 Requires Node.js 24.14 or newer within the 24.x release line.
@@ -38,7 +46,7 @@ Real AI requests require provider credentials and can incur provider charges. Se
 - [Operations guide](docs/OPERATIONS_GUIDE.md)
 - [Self-hosted deployment and recovery](docs/SELF_HOSTED_DEPLOYMENT.md)
 
-The guides use synthetic examples and contain no usable credentials. Links into the application require the local server to be running.
+The guides use synthetic examples and contain no usable credentials. The PDF links to the deployed Vercel application; local links in the interactive HTML guide require the local server to be running.
 
 ## Verification
 
