@@ -14,7 +14,7 @@
   "functions": {
     "api/index.js": {
       "maxDuration": 300,
-      "includeFiles": ["src/**", "public/**", "output/pdf/**"]
+      "includeFiles": "{src,public,output/pdf}/**"
     }
   },
   "rewrites": [

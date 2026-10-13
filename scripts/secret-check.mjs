@@ -9,10 +9,10 @@ const patterns=[
   ['AWS access key',/(?:AKIA|ASIA)[A-Z0-9]{16}/],
   ['Private key',new RegExp('-----BEGIN '+ '(?:RSA |EC |OPENSSH )?PRIVATE KEY-----')]
 ];
-const forbidden=/^(?:data|node_modules|tmp|\.codex|\.agents|\.impeccable)\/|(?:^|\/)\.env(?:\.|$)|\.(?:sqlite(?:-wal|-shm)?|key|pem)$/;
+const forbidden=/^(?:data|node_modules|tmp|\.vercel|\.codex|\.agents|\.impeccable)\/|(?:^|\/)\.env(?:\.|$)|\.(?:sqlite(?:-wal|-shm)?|key|pem)$/;
 let failed=false;
 for(const file of files){
-  if(forbidden.test(file)){console.error(`Private/generated path tracked: ${file}`);failed=true;}
+  if(file!=='.env.example'&&forbidden.test(file)){console.error(`Private/generated path tracked: ${file}`);failed=true;}
   const bytes=readFileSync(file);if(bytes.subarray(0,8000).includes(0))continue;
   const text=bytes.toString('utf8');
   for(const [label,pattern] of patterns)if(pattern.test(text)){console.error(`Possible ${label}: ${file} (value redacted)`);failed=true;}
