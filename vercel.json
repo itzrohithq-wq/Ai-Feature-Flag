@@ -1,0 +1,32 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm ci",
+  "buildCommand": "npm run check",
+  "outputDirectory": "public",
+  "regions": ["iad1"],
+  "headers": [{ "source": "/:path*", "headers": [
+    { "key": "X-Content-Type-Options", "value": "nosniff" },
+    { "key": "X-Frame-Options", "value": "DENY" },
+    { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+    { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+  ] }],
+  "functions": {
+    "api/index.js": {
+      "maxDuration": 300,
+      "includeFiles": ["src/**", "public/**", "output/pdf/**"]
+    }
+  },
+  "rewrites": [
+    { "source": "/", "destination": "/api/index" },
+    { "source": "/agents", "destination": "/api/index" },
+    { "source": "/operations", "destination": "/api/index" },
+    { "source": "/welcome", "destination": "/api/index" },
+    { "source": "/health", "destination": "/api/index" },
+    { "source": "/auth/:path*", "destination": "/api/index" },
+    { "source": "/api/:path*", "destination": "/api/index" },
+    { "source": "/guide.pdf", "destination": "/api/index" },
+    { "source": "/guide", "destination": "/api/index" }
+  ],
+  "crons": [{ "path": "/api/worker", "schedule": "0 0 * * *" }]
+}

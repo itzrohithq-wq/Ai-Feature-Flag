@@ -56,7 +56,7 @@ export class Operations {
   job(tenant,environment,id){const row=this.db.prepare('SELECT * FROM evaluation_jobs WHERE tenant=? AND environment=? AND id=?').get(tenant,environment,id);if(!row)fail('Job not found.','NOT_FOUND',404);const input=JSON.parse(row.input);const dataset=this.runtime.get(tenant,environment,'datasets',input.dataset,input.datasetVersion);return {id:row.id,status:row.status,input,completed:JSON.parse(row.outputs).length,total:dataset.rows.length*input.variations.length,result:row.result?JSON.parse(row.result):null,error:row.error,createdAt:row.createdAt,updatedAt:row.updatedAt};}
   jobs(tenant,environment){return this.db.prepare('SELECT id FROM evaluation_jobs WHERE tenant=? AND environment=? ORDER BY createdAt DESC LIMIT 100').all(tenant,environment).map(r=>this.job(tenant,environment,r.id));}
   jobAction(identity,environment,id,action){const job=this.job(identity.tenant,environment,id);if(action==='cancel'&&['queued','running'].includes(job.status))this.db.prepare("UPDATE evaluation_jobs SET status='cancelled',updatedAt=? WHERE id=?").run(now(),id);else if(action==='resume'&&['cancelled','failed'].includes(job.status))this.db.prepare("UPDATE evaluation_jobs SET status='queued',error=NULL,updatedAt=? WHERE id=?").run(now(),id);else fail('This job cannot perform that action.','JOB_STATE',409);this.audit(identity,`job_${action}`,id,environment);return this.job(identity.tenant,environment,id);}
-  async workOnce(){
+  async workOnce({maxItems=Infinity}={}){
     if(this.active||this.closed)return;this.active=true;
     try {
       this.collectNotifications();this.runSchedules();
@@ -67,13 +67,16 @@ export class Operations {
       const input=JSON.parse(row.input),outputs=JSON.parse(row.outputs),dataset=this.runtime.get(row.tenant,row.environment,'datasets',input.dataset,input.datasetVersion);
       try {
         const providers=this.providerSet(row.tenant);
+        let processed=0;
         for(const variation of input.variations)for(const item of dataset.rows){
           if(this.closed||this.job(row.tenant,row.environment,row.id).status!=='running')return;
           if(outputs.some(o=>o.variation===variation&&o.rowId===item.id))continue;
+          if(processed>=maxItems){this.db.prepare("UPDATE evaluation_jobs SET status='queued',updatedAt=? WHERE id=? AND status='running'").run(now(),row.id);return;}
           const result=await generate(this.runtime,providers,row.tenant,row.environment,{...input,variation,input:item.input,variables:item.variables,expected:item.expected,attachments:item.attachments},{toolHandlers:this.toolHandlers});
           if(this.closed||this.job(row.tenant,row.environment,row.id).status!=='running')return;
           outputs.push({rowId:item.id,variation,output:result.output,judgement:result.evaluation});
           this.db.prepare('UPDATE evaluation_jobs SET outputs=?,updatedAt=? WHERE id=?').run(JSON.stringify(outputs),now(),row.id);
+          processed++;
         }
         this.runtime.transaction(()=>{const result=this.runtime.benchmark(row.tenant,row.environment,{...input,outputs});this.db.prepare("UPDATE evaluation_jobs SET status='completed',result=?,updatedAt=? WHERE id=?").run(JSON.stringify(result),now(),row.id);});
       }catch(err){if(this.job(row.tenant,row.environment,row.id).status==='running')this.db.prepare("UPDATE evaluation_jobs SET status='failed',error=?,updatedAt=? WHERE id=?").run(err.status?err.message:'Evaluation failed; inspect provider configuration and server logs.',now(),row.id);}

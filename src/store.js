@@ -5,9 +5,9 @@ import { randomUUID } from 'node:crypto';
 import { validateFlag, evaluate } from './engine.js';
 
 export class Store {
-  constructor(path = ':memory:') {
+  constructor(path = ':memory:', database) {
     if (path !== ':memory:') mkdirSync(dirname(path), { recursive: true });
-    this.db = new DatabaseSync(path);
+    this.db = database ?? new DatabaseSync(path);
     this.db.exec(`PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;
       CREATE TABLE IF NOT EXISTS versions (tenant TEXT, environment TEXT, key TEXT, version INTEGER, config TEXT NOT NULL, PRIMARY KEY(tenant,environment,key,version));
       CREATE TABLE IF NOT EXISTS audit (id TEXT PRIMARY KEY, tenant TEXT, actor TEXT, action TEXT, environment TEXT, key TEXT, version INTEGER, timestamp TEXT);

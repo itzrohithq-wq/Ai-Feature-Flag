@@ -38,6 +38,12 @@ export function createApp({ store = new Store(), credentials = [], requireProduc
       if(req.method==='GET'&&url.pathname==='/auth/sso'){const flow=await access.beginSso();res.writeHead(302,{Location:flow.url,'Cache-Control':'no-store','Set-Cookie':`studio_sso=${flow.state}; HttpOnly; SameSite=Lax; Path=/auth; Max-Age=300${sso.redirectUri.startsWith('https:')?'; Secure':''}`});return res.end();}
       if(req.method==='GET'&&url.pathname==='/auth/callback'){const cookie=(req.headers.cookie??'').split(';').map(v=>v.trim()).find(v=>v.startsWith('studio_sso='))?.slice(11);if(!sso)throw error(409,'SSO_NOT_CONFIGURED','SSO is not configured.');const callback=new URL(req.url,new URL(sso.redirectUri).origin);const exchange=await access.finishSso(callback,cookie);res.writeHead(302,{Location:`/operations#exchange=${exchange}`,'Cache-Control':'no-store','Referrer-Policy':'no-referrer','Set-Cookie':'studio_sso=; HttpOnly; SameSite=Lax; Path=/auth; Max-Age=0'});return res.end();}
       if (req.method === 'GET' && url.pathname === '/health') return send(200, { status: 'ok' });
+      if(req.method==='GET'&&['/guide','/guide.pdf'].includes(url.pathname)){
+        const pdf=url.pathname.endsWith('.pdf');
+        let content=await readFile(resolve(root,'output/pdf',pdf?'Control-Studio-Designed-User-Guide.pdf':'Control-Studio-Interactive-Guide.html'));
+        if(!pdf&&process.env.VERCEL)content=Buffer.from(content.toString().replaceAll('http://127.0.0.1:4315',process.env.PUBLIC_ORIGIN??`https://${req.headers.host}`));
+        res.writeHead(200,{'Content-Type':pdf?'application/pdf':'text/html; charset=utf-8','X-Content-Type-Options':'nosniff','X-Frame-Options':'DENY','Cache-Control':'public, max-age=3600','Referrer-Policy':'no-referrer'});return res.end(content);
+      }
       const assets = { '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'], '/agents': ['agents.html','text/html'], '/agents.js':['agents.js','text/javascript'], '/manrope.woff2':['manrope.woff2','font/woff2'] };
       assets['/operations']=['operations.html','text/html'];assets['/operations.js']=['operations.js','text/javascript'];assets['/operations-ui.js']=['operations-ui.js','text/javascript'];assets['/enterprise-ui.js']=['enterprise-ui.js','text/javascript'];
       assets['/welcome']=['welcome.html','text/html'];assets['/welcome.css']=['welcome.css','text/css'];assets['/welcome.js']=['welcome.js','text/javascript'];
@@ -45,7 +51,8 @@ export function createApp({ store = new Store(), credentials = [], requireProduc
       assets['/tour.webm']=['tour.webm','video/webm'];assets['/tour-poster.png']=['tour-poster.png','image/png'];assets['/studio-preview.png']=['studio-preview.png','image/png'];assets['/tour.vtt']=['tour.vtt','text/vtt'];
       if (req.method === 'GET' && assets[url.pathname]) {
         const [file, type] = assets[url.pathname];
-        const content = await readFile(resolve(root, 'public', file));
+        let content = await readFile(resolve(root, 'public', file));
+        if(type==='text/html'&&process.env.VERCEL)content=Buffer.from(content.toString().replaceAll('Local development','Hosted workspace').replaceAll('value="local-workspace"','value="hosted-workspace"'));
         const headers = { 'Content-Type': type + (type.startsWith('text/') ? '; charset=utf-8' : ''), 'Content-Length': content.length, 'Content-Security-Policy': "default-src 'self'; style-src 'self'; script-src 'self'; frame-ancestors 'none'; base-uri 'none'", 'X-Content-Type-Options': 'nosniff' };
         if (type === 'video/webm') {
           headers['Accept-Ranges'] = 'bytes';
@@ -69,7 +76,7 @@ export function createApp({ store = new Store(), credentials = [], requireProduc
       const cookieToken=(req.headers.cookie??'').split(';').map(v=>v.trim()).find(v=>v.startsWith('studio_session='))?.slice(15)??'';
       const cookieAuth=!req.headers.authorization&&Boolean(cookieToken);
       const token=req.headers.authorization?req.headers.authorization.replace(/^Bearer /,''):cookieToken;
-      const origin=process.env.PUBLIC_ORIGIN??`http://${req.headers.host}`;
+      const origin=process.env.PUBLIC_ORIGIN??`${process.env.VERCEL?'https':'http'}://${req.headers.host}`;
       const sessionCookie=value=>`studio_session=${value}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${value?3600:0}${origin.startsWith('https:')?'; Secure':''}`;
       if(cookieAuth&&!['GET','HEAD'].includes(req.method)&&req.headers.origin!==origin)throw error(403,'CSRF_FORBIDDEN','Same-origin browser request required.');
       if(['/auth/login','/auth/exchange'].includes(url.pathname)&&req.headers.origin&&req.headers.origin!==origin)throw error(403,'CSRF_FORBIDDEN','Same-origin browser request required.');
@@ -238,7 +245,7 @@ export function createApp({ store = new Store(), credentials = [], requireProduc
   let standby;
   const acquire=()=>{try{operations.start();clearInterval(standby);}catch(error){if(workerMode!=='auto'||!error.message.startsWith('Another worker'))throw error;}};
   if(workerMode!=='disabled'){acquire();if(!operations.timer){standby=setInterval(acquire,2000);standby.unref();}}
-  const deliveryTimer=setInterval(()=>{if(operations.timer&&!operations.closed)delivery.tick().catch(()=>{});},2000);deliveryTimer.unref();server.on('close',()=>{clearInterval(standby);clearInterval(deliveryTimer);operations.close();});server.operations=operations;server.access=access;return server;
+  const deliveryTimer=workerMode==='disabled'?undefined:setInterval(()=>{if(operations.timer&&!operations.closed)delivery.tick().catch(()=>{});},2000);deliveryTimer?.unref();server.on('close',()=>{clearInterval(standby);clearInterval(deliveryTimer);operations.close();});server.operations=operations;server.delivery=delivery;server.access=access;return server;
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
