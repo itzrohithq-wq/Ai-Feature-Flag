@@ -5,6 +5,9 @@ Self-hosted feature flags and AI runtime controls for prompts, models, evaluatio
 ## Live application
 
 - [Open Control Studio on Vercel](https://ai-feature-flag.vercel.app/)
+- [Open Feature Flags](https://ai-feature-flag.vercel.app/flags)
+- [Open AI Runtime](https://ai-feature-flag.vercel.app/agents)
+- [Open Workspace](https://ai-feature-flag.vercel.app/operations)
 - [Read the PDF user guide](output/pdf/Control-Studio-Designed-User-Guide.pdf)
 - [Open the hosted PDF guide](https://ai-feature-flag.vercel.app/guide.pdf)
 
@@ -21,9 +24,9 @@ npm ci
 npm start
 ```
 
-Open http://127.0.0.1:4315. The server prints a local owner token; paste it into Connect workspace. Set FLAG_ADMIN_TOKEN in the server environment for a persistent token. New installations generate a fresh token on restart otherwise. Local state is stored in data/flags.sqlite and is excluded from Git.
+For local development, the server listens at `http://127.0.0.1:4315`. It prints a local owner token; paste it into Connect workspace on your local installation. Set FLAG_ADMIN_TOKEN in the server environment for a persistent token. New installations generate a fresh token on restart otherwise. Local state is stored in data/flags.sqlite and is excluded from Git. To use the deployed application, [open Control Studio on Vercel](https://ai-feature-flag.vercel.app/).
 
-Use Feature flags for boolean/multivariate flags, AI runtime for configurations and the playground, and Workspace for evaluation jobs, monitoring, releases and access settings. The product website is at /welcome.
+Use [Feature Flags](https://ai-feature-flag.vercel.app/flags) for boolean/multivariate flags, [AI Runtime](https://ai-feature-flag.vercel.app/agents) for configurations and the playground, and [Workspace](https://ai-feature-flag.vercel.app/operations) for evaluation jobs, monitoring, releases and access settings. The [product website](https://ai-feature-flag.vercel.app/) opens first at the Vercel URL.
 
 ## Features
 
@@ -41,12 +44,13 @@ Real AI requests require provider credentials and can incur provider charges. Se
 ## User guide
 
 - [Landscape PDF guide](output/pdf/Control-Studio-Designed-User-Guide.pdf)
-- [Interactive HTML guide](output/pdf/Control-Studio-Interactive-Guide.html) - download and open locally for hover animations; GitHub displays HTML source.
+- [Open the interactive user guide](https://ai-feature-flag.vercel.app/guide)
+- [Interactive HTML guide source](output/pdf/Control-Studio-Interactive-Guide.html)
 - [Runtime and SDK guide](docs/RUNTIME_GUIDE.md)
 - [Operations guide](docs/OPERATIONS_GUIDE.md)
 - [Self-hosted deployment and recovery](docs/SELF_HOSTED_DEPLOYMENT.md)
 
-The guides use synthetic examples and contain no usable credentials. The PDF links to the deployed Vercel application; local links in the interactive HTML guide require the local server to be running.
+The guides use synthetic examples and contain no usable credentials. The PDF and hosted interactive guide link to the deployed Vercel application. The downloadable HTML source retains local-development links.
 
 ## Verification
 
@@ -62,7 +66,7 @@ Optional browser checks require Playwright and @axe-core/playwright in a separat
 
 ## Deployment boundary
 
-Use the supplied compose.production.yaml and configure your own domain, HTTPS origin and persistent owner token. This is a self-hosted application on one host with SQLite; it does not establish enterprise availability guarantees or full competitor equivalence. Real provider, OIDC, SCIM and Slack integrations require your own accounts and configuration.
+The Vercel deployment uses durable PostgreSQL storage and a signed background worker; see the [hosted deployment guide](docs/VERCEL_DEPLOYMENT.md). For self-hosting, use the supplied compose.production.yaml and configure your own domain, HTTPS origin and persistent owner token; local and Docker installations use SQLite. These deployments do not establish enterprise availability guarantees or full competitor equivalence. Real provider, OIDC, SCIM and Slack integrations require your own accounts and configuration.
 
 ## Third-party assets
 
