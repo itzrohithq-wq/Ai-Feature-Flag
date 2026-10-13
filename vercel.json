@@ -19,6 +19,7 @@
   },
   "rewrites": [
     { "source": "/", "destination": "/api/index" },
+    { "source": "/flags", "destination": "/api/index" },
     { "source": "/agents", "destination": "/api/index" },
     { "source": "/operations", "destination": "/api/index" },
     { "source": "/welcome", "destination": "/api/index" },

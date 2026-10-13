@@ -142,3 +142,6 @@ nav{display:flex;gap:24px}nav a{color:var(--muted);text-decoration:none;font-siz
 .operations-page .panel>form+details{margin-top:20px}
 /* User-selected global application scale. */
 html{zoom:0.67}
+
+/* Shared site scale requested by the workspace owner. */
+@media screen { html { zoom: 0.67; } }

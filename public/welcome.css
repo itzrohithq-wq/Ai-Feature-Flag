@@ -10,3 +10,6 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.button:hover,.button:active{transform:none}}
 
 .window-bar>span:nth-child(2){min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Shared site scale requested by the workspace owner. */
+@media screen { html { zoom: 0.67; } }

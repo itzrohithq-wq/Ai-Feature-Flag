@@ -16,6 +16,28 @@ async function withPublicServer(run) {
   }
 }
 
+test('hosted entry opens the website and keeps the feature flag software reachable', async () => {
+  const previous = process.env.VERCEL;
+  process.env.VERCEL = '1';
+  try {
+    await withPublicServer(async base => {
+      const home = await fetch(base + '/');
+      assert.equal(home.status, 200);
+      const html = await home.text();
+      assert.match(html, /Open your workspace/);
+      assert.match(html, /href="\/agents"/);
+      assert.match(html, /href="\/flags"/);
+      const flags = await fetch(base + '/flags');
+      assert.equal(flags.status, 200);
+      assert.match(await flags.text(), /src="\/app.js"/);
+      assert.equal((await fetch(base + '/api/flags')).status, 401);
+    });
+  } finally {
+    if (previous === undefined) delete process.env.VERCEL;
+    else process.env.VERCEL = previous;
+  }
+});
+
 test('welcome fonts and media are public with correct MIME types and unchanged security headers', async () => {
   await withPublicServer(async base => {
     for (const [path, type] of [
